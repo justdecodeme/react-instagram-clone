@@ -21,6 +21,8 @@ Your app is ready to be deployed!
 # Dependencies:
 
 - date-fns
+- firebase
+- react-loading-skeleton
 
 # Skills used:
 
