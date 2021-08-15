@@ -10,13 +10,14 @@ const Dashboard = () => {
 	}, []);
 
 	return (
-		<div>
+		<>
 			<Header />
+			<hr />
 			<div>
 				<Timeline />
 				<Sidebar />
 			</div>
-		</div>
+		</>
 	);
 };
 
