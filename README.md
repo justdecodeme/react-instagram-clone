@@ -23,6 +23,7 @@ Your app is ready to be deployed!
 - date-fns
 - firebase
 - react-loading-skeleton
+- react-router-dom
 
 # Skills used:
 
