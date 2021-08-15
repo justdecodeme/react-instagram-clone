@@ -3,6 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 
 import FirebaseContext from "../context/firebase";
 import * as ROUTES from "../constants/routes";
+import { doesUsernameExist } from "../services/firebase";
 
 const SignUp = () => {
 	const history = useHistory();
@@ -14,18 +15,43 @@ const SignUp = () => {
 	const [password, setPassword] = useState("");
 
 	const [error, setError] = useState("");
-	const isInvalid = password === "" || emailAddress === "";
+	const isInvalid = username === "" || fullName === "" || password === "" || emailAddress === "";
 
 	const handleSignUp = async (e) => {
 		e.preventDefault();
 		setError("");
 
-		try {
-			await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
-			console.log("SignUp success...");
-			// history.push(ROUTES.DASHBOARD);
-		} catch (error) {
-			setError(error.message);
+		const usernameExists = await doesUsernameExist(username);
+
+		if (!usernameExists) {
+			try {
+				const createdUserResult = await firebase
+					.auth()
+					.createUserWithEmailAndPassword(emailAddress, password);
+
+				// authentication
+				// -> emailAddress & password & username (displayName)
+				await createdUserResult.user.updateProfile({
+					displayName: username,
+				});
+
+				// firebase user collection (create a document)
+				await firebase.firestore().collection("users").add({
+					userId: createdUserResult.user.uid,
+					username: username.toLowerCase(),
+					fullName,
+					emailAddress: emailAddress.toLowerCase(),
+					following: [],
+					followers: [],
+					dateCreated: Date.now(),
+				});
+
+				history.push(ROUTES.DASHBOARD);
+			} catch (error) {
+				setError(error.message);
+			}
+		} else {
+			setError("That username is already taken, please try another.");
 		}
 	};
 
