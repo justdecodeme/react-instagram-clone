@@ -24,6 +24,8 @@ Your app is ready to be deployed!
 - firebase
 - react-loading-skeleton
 - react-router-dom
+- postcss -D
+- autoprefixer
 
 # Skills used:
 
