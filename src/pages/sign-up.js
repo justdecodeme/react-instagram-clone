@@ -1,11 +1,10 @@
 import { useState, useContext, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
-
+import { Link, useHistory } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
 import * as ROUTES from "../constants/routes";
 import { doesUsernameExist } from "../services/firebase";
 
-const SignUp = () => {
+export default function SignUp() {
 	const history = useHistory();
 	const { firebase } = useContext(FirebaseContext);
 
@@ -22,7 +21,6 @@ const SignUp = () => {
 		setError("");
 
 		const usernameExists = await doesUsernameExist(username);
-
 		if (!usernameExists) {
 			try {
 				const createdUserResult = await firebase
@@ -56,51 +54,60 @@ const SignUp = () => {
 	};
 
 	useEffect(() => {
-		document.title = "SignUp - Instagram";
+		document.title = "Sign Up - Instagram";
 	}, []);
 
 	return (
-		<div style={{ maxWidth: "200px", margin: "0 auto", padding: "20px" }}>
-			{error && <p style={{ color: "red" }}>{error}</p>}
+		<div>
+			<div>
+				<div>
+					<h1>
+						<img src="/images/logo.png" alt="Instagram" />
+					</h1>
 
-			<form onSubmit={handleSignUp} method="POST">
-				<fieldset>
-					<legend>Sign Up</legend>
-					<input
-						type="text"
-						placeholder="Enter your username"
-						onChange={({ target }) => setUsername(target.value)}
-						value={username}
-					/>
-					<br />
-					<input
-						type="text"
-						placeholder="Full Name"
-						onChange={({ target }) => setFullName(target.value)}
-						value={fullName}
-					/>
-					<br />
-					<input
-						type="text"
-						placeholder="Email address"
-						onChange={({ target }) => setEmailAddress(target.value)}
-						value={emailAddress}
-					/>
-					<br />
-					<input
-						type="password"
-						placeholder="Password"
-						onChange={({ target }) => setPassword(target.value)}
-						value={password}
-					/>
-					<br />
-					<button disabled={isInvalid}>Sign up</button>
-				</fieldset>
-			</form>
+					{error && <p style={{ color: "red" }}>{error}</p>}
 
-			<Link to={ROUTES.LOGIN}>Login</Link>
+					<form onSubmit={handleSignUp} method="POST">
+						<input
+							type="text"
+							placeholder="Username"
+							onChange={({ target }) => setUsername(target.value)}
+							value={username}
+						/>
+						<br />
+						<input
+							type="text"
+							placeholder="Full name"
+							onChange={({ target }) => setFullName(target.value)}
+							value={fullName}
+						/>
+						<br />
+						<input
+							type="text"
+							placeholder="Email address"
+							onChange={({ target }) => setEmailAddress(target.value)}
+							value={emailAddress}
+						/>
+						<br />
+						<input
+							type="password"
+							placeholder="Password"
+							onChange={({ target }) => setPassword(target.value)}
+							value={password}
+						/>
+						<br />
+						<button disabled={isInvalid} type="submit">
+							Sign Up
+						</button>
+					</form>
+				</div>
+				<div>
+					<p>
+						Have an account?{` `}
+						<Link to={ROUTES.LOGIN}>Login</Link>
+					</p>
+				</div>
+			</div>
 		</div>
 	);
-};
-
-export default SignUp;
+}

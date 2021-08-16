@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-
 import FirebaseContext from "../context/firebase";
 import UserContext from "../context/user";
 import * as ROUTES from "../constants/routes";
@@ -16,33 +15,40 @@ export default function Header() {
 	return (
 		<header style={{ display: "flex", justifyContent: "space-between" }}>
 			<Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
-				Instagram
+				<img src="/images/logo.png" alt="Instagram" style={{ height: "30px" }} />
 			</Link>
 			<div style={{ display: "flex", alignItems: "center" }}>
 				{loggedInUser ? (
 					<>
+						<Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
+							Home
+						</Link>
+
 						{user && (
-							<Link to={`/p/${user?.username}`}>
-								<img
-									style={{ width: "50px" }}
-									src={`/images/avatars/${user?.username}.jpg`}
-									alt={`${user?.username} profile`}
-									onError={(e) => {
-										e.target.src = DEFAULT_IMAGE_PATH;
-									}}
-								/>
-							</Link>
+							<div>
+								<Link to={`/p/${user?.username}`}>
+									<img
+										src={`/images/avatars/${user?.username}.jpg`}
+										alt={`${user?.username} profile`}
+										style={{ width: "50px" }}
+										onError={(e) => {
+											e.target.src = DEFAULT_IMAGE_PATH;
+										}}
+									/>
+								</Link>
+							</div>
 						)}
-						<span>{user?.username}</span>
+						{user?.username}
 
 						<button
 							type="button"
+							title="Sign Out"
 							onClick={() => {
 								firebase.auth().signOut();
 								history.push(ROUTES.LOGIN);
 							}}
 						>
-							Sign Out
+							Log Out
 						</button>
 					</>
 				) : (

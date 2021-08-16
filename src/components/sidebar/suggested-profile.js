@@ -27,19 +27,18 @@ export default function SuggestedProfile({
 	}
 
 	return !followed ? (
-		<div>
-			<div>
-				<img
-					src={`/images/avatars/${username}.jpg`}
-					alt=""
-					onError={(e) => {
-						e.target.src = `/images/avatars/default.png`;
-					}}
-				/>
-				<Link to={`/p/${username}`}>
-					<p className="font-bold text-sm">{username}</p>
-				</Link>
-			</div>
+		<div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+			<img
+				style={{ width: "30px" }}
+				src={`/images/avatars/${username}.jpg`}
+				alt=""
+				onError={(e) => {
+					e.target.src = `/images/avatars/default.png`;
+				}}
+			/>
+			<Link to={`/p/${username}`}>
+				<p>{username}</p>
+			</Link>
 			<button type="button" onClick={handleFollowUser}>
 				Follow
 			</button>

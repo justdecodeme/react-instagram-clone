@@ -1,7 +1,7 @@
+/* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
-
 import { getSuggestedProfiles } from "../../services/firebase";
 import SuggestedProfile from "./suggested-profile";
 

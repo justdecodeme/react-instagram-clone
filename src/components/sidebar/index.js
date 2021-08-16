@@ -8,7 +8,7 @@ export default function Sidebar() {
 		useContext(LoggedInUserContext);
 
 	return (
-		<div>
+		<div style={{ width: "200px" }}>
 			<User username={username} fullName={fullName} />
 			<Suggestions userId={userId} following={following} loggedInUserDocId={docId} />
 		</div>
