@@ -9,8 +9,9 @@ import LoggedInUserContext from "../context/logged-in-user";
 export default function Dashboard({ user: loggedInUser }) {
 	const { user, setActiveUser } = useUser(loggedInUser.uid);
 
-	console.log(".....", user);
-	console.log("----", setActiveUser);
+	// console.log(".....", user);
+	// console.log("----", setActiveUser);
+
 	useEffect(() => {
 		document.title = "Instagram";
 	}, []);

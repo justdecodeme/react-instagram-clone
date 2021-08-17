@@ -3,12 +3,14 @@ import { Link, useHistory } from "react-router-dom";
 
 import FirebaseContext from "../context/firebase";
 import UserContext from "../context/user";
+import LoggedInUserContext from "../context/logged-in-user";
 import * as ROUTES from "../constants/routes";
 import { DEFAULT_IMAGE_PATH } from "../constants/paths";
 import useUser from "../hooks/use-user";
 
 export default function Header() {
 	const { user: loggedInUser } = useContext(UserContext);
+	// const { user } = useContext(LoggedInUserContext);
 	const { user } = useUser(loggedInUser?.uid);
 	const { firebase } = useContext(FirebaseContext);
 	const history = useHistory();
@@ -27,10 +29,10 @@ export default function Header() {
 
 						{user && (
 							<div>
-								<Link to={`/p/${user?.username}`}>
+								<Link to={`/p/${user.username}`}>
 									<img
-										src={`/images/avatars/${user?.username}.jpg`}
-										alt={`${user?.username} profile`}
+										src={`/images/avatars/${user.username}.jpg`}
+										alt={`${user.username} profile`}
 										style={{ width: "50px" }}
 										onError={(e) => {
 											e.target.src = DEFAULT_IMAGE_PATH;
