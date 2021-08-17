@@ -11,6 +11,10 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) 
 	const [likes, setLikes] = useState(totalLikes);
 	const { firebase, FieldValue } = useContext(FirebaseContext);
 
+	if (docId === "lty7xMH3HN7MIJHs8VHY") {
+		console.log("...docId", docId, likedPhoto);
+	}
+
 	const handleToggleLiked = async () => {
 		setToggleLiked((toggleLiked) => !toggleLiked);
 
@@ -22,19 +26,19 @@ export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) 
 				likes: toggleLiked ? FieldValue.arrayRemove(userId) : FieldValue.arrayUnion(userId),
 			});
 
+		console.log("toggleLiked 2", toggleLiked);
 		setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1));
 	};
 
 	return (
 		<>
-			<div className="flex justify-between p-4">
-				<div className="flex">
-					<button onClick={handleToggleLiked}>{toggleLiked ? "Like" : "Unlike"}</button>
-					<button onClick={handleFocus}>Comment</button>
-				</div>
+			<div>
+				{docId === "lty7xMH3HN7MIJHs8VHY" ? ">>" : null}
+				<button onClick={handleToggleLiked}>{toggleLiked ? "Unlike" : "Like"}</button>
+				<button onClick={handleFocus}>Comment</button>
 			</div>
-			<div className="p-4 py-0">
-				<p className="font-bold">{likes === 1 ? `${likes} like` : `${likes} likes`}</p>
+			<div>
+				<p>{likes === 1 ? `${likes} like` : `${likes} likes`}</p>
 			</div>
 		</>
 	);

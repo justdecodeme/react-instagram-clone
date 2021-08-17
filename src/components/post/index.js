@@ -13,7 +13,7 @@ export default function Post({ content }) {
 	// components
 	// -> header, image, actions (like & comment icons), footer, comments
 	return (
-		<div style={{ background: "lightblue" }}>
+		<div style={{ background: "lightblue", marginBottom: "20px", padding: "20px" }}>
 			<Header username={content.username} />
 			<Image src={content.imageSrc} caption={content.caption} />
 			<Actions

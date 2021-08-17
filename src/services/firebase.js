@@ -90,7 +90,7 @@ export async function getPhotos(userId, following) {
 	const result = await firebase
 		.firestore()
 		.collection("photos")
-		.where("userId", "in", following)
+		.where("userId", "in", [...following, userId])
 		.get();
 
 	const userFollowedPhotos = result.docs.map((photo) => ({
